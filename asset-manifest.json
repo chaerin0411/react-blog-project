@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/react-blog-project/static/js/main.b0e9cfae.js",
+    "static/js/787.71df535f.chunk.js": "/react-blog-project/static/js/787.71df535f.chunk.js",
+    "index.html": "/react-blog-project/index.html",
+    "main.b0e9cfae.js.map": "/react-blog-project/static/js/main.b0e9cfae.js.map",
+    "787.71df535f.chunk.js.map": "/react-blog-project/static/js/787.71df535f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.b0e9cfae.js"
+  ]
+}
