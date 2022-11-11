@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 function App() {
   const [time, setTime] = useState(new Date());
@@ -13,17 +13,9 @@ function App() {
     };
   }, [timer]);
 
-  let isEven = true;
-  if(time.getTime() % 2 === 0) {
-    isEven = true;
-  } else {
-    isEven = false;
-  }
-
   return (
     <div>
       <h3>현재시간 : {time.toLocaleTimeString()}</h3>
-      <h3>지금 시간은 홀일까요 짝일까요? = {isEven ? '짝이네' : '홀이네'}</h3>
       <h3>자기소개</h3>
       <h3>이름 : 전채린</h3>
       <h3>학력</h3>
