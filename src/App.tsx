@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Breadcrumb, Layout, Menu, Button } from 'antd';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 
 const { Header, Content, Footer } = Layout;
 
 function App() {
+	const login = useGoogleLogin({
+		onSuccess: async (codeResponse) => {
+			const { code } = codeResponse;
+			console.log(codeResponse);
+			await axios.post("http://localhost:5000/auth/google", {
+				code,
+			})
+		},
+		flow: "auth-code",
+	});
+	
 	const [time, setTime] = useState(new Date());
 
 	const timer = setInterval(() => {
@@ -21,6 +34,20 @@ function App() {
 	return (
 		<Layout className="layout">
 			<h3>현재시간 : {time.toLocaleTimeString()}</h3>
+			<Button onClick={() => {
+				login();
+			}}
+			>
+				로그인
+			</Button>
+			<GoogleLogin
+				onSuccess={(credentialResponse) => {
+					console.log(credentialResponse);
+				}}
+				onError={() => {
+					console.log("Login Failed");
+				}}
+			/>
 			<Router>
 				<Header>
 					<Menu
