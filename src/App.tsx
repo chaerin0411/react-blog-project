@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import { Layout, Menu } from 'antd';
+import { Breadcrumb, Layout, Menu } from 'antd';
+
 const { Header, Content, Footer } = Layout;
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
 					<Menu
 						theme="dark"
 						mode="horizontal"
-						defaultSelectedKeys={['1']}
+						defaultSelectedKeys={["1"]}
 						items={[
 							{
 								key: 1,
@@ -33,30 +34,37 @@ function App() {
 							},
 							{
 								key: 2,
-								label: <Link to="/resume">이력서</Link>,
+								label: <Link to="/resume">Resume</Link>,
 							},
 							{
 								key: 3,
-								label: <Link to="/portfolio">포트폴리오</Link>,
+								label: <Link to="/portfolio">Portfolio</Link>,
 							},
 						]}
 					/>
 				</Header>
-				<Content style={{ padding: '0 50px' }}>
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/resume" element={<Resume />} />
-						<Route path="/portfolio" element={<Portfolio />} />
-					</Routes>
+				<Content style={{ padding: "0 50px" }}>
+					<Breadcrumb style={{ margin: "16px 0" }}>
+						<Breadcrumb.Item>Home</Breadcrumb.Item>
+						<Breadcrumb.Item>Resume</Breadcrumb.Item>
+						<Breadcrumb.Item>Portfolio</Breadcrumb.Item>
+					</Breadcrumb>
+					<div className="site-layout-content">
+						<Routes>
+							<Route path="/" element={<Home />} />
+							<Route path="/resume" element={<Resume />} />
+							<Route path="/portfolio" element={<Portfolio />} />
+						</Routes>
+					</div>
 				</Content>
-				<Footer style={{ textAlign: 'center' }}>©chaerin</Footer>
+				<Footer style={{ textAlign: "center" }}>©chaerin</Footer>
 			</Router>
 		</Layout>
 	);
 }
 
 const Home = () => {
-	return <>홈페이지</>;
+	return <div>홈페이지</div>;
 };
 
 const Resume = () => {
