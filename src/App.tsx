@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css';
-import { Breadcrumb, Layout, Menu, Button } from 'antd';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import "./App.css";
+import { Breadcrumb, Layout, Menu, Button, List, Avatar } from "antd";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import GuestBook from "./GuestBook";
 
 const { Header, Content, Footer } = Layout;
 
@@ -14,11 +15,11 @@ function App() {
 			console.log(codeResponse);
 			await axios.post("http://localhost:5000/auth/google", {
 				code,
-			})
+			});
 		},
 		flow: "auth-code",
 	});
-	
+
 	const [time, setTime] = useState(new Date());
 
 	const timer = setInterval(() => {
@@ -34,9 +35,10 @@ function App() {
 	return (
 		<Layout className="layout">
 			<h3>현재시간 : {time.toLocaleTimeString()}</h3>
-			<Button onClick={() => {
-				login();
-			}}
+			<Button
+				onClick={() => {
+					login();
+				}}
 			>
 				로그인
 			</Button>
@@ -67,20 +69,25 @@ function App() {
 								key: 3,
 								label: <Link to="/portfolio">Portfolio</Link>,
 							},
+							{
+								key: 4,
+								label: <Link to="/guestbook">GuestBook</Link>,
+							},
 						]}
 					/>
 				</Header>
 				<Content style={{ padding: "0 50px" }}>
 					<Breadcrumb style={{ margin: "16px 0" }}>
 						<Breadcrumb.Item>Home</Breadcrumb.Item>
-						<Breadcrumb.Item>Resume</Breadcrumb.Item>
-						<Breadcrumb.Item>Portfolio</Breadcrumb.Item>
+						<Breadcrumb.Item>List</Breadcrumb.Item>
+						<Breadcrumb.Item>Content</Breadcrumb.Item>
 					</Breadcrumb>
 					<div className="site-layout-content">
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/resume" element={<Resume />} />
 							<Route path="/portfolio" element={<Portfolio />} />
+							<Route path="/guestbook" element={<GuestBook />} />
 						</Routes>
 					</div>
 				</Content>
