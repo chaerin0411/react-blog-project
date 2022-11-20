@@ -14,7 +14,9 @@ const GuestBook = () => {
 	const [data, setData] = useState<GuestBookItem[]>([]);
 
 	const fetchGuestBookItems = async () => {
-		const { data } = await axios.get("https://backend-iwc3.onrender.com/guestbook/items");
+		const { data } = await axios.get(
+			"https://backend-iwc3.onrender.com/guestbook/items",
+		);
 		console.log("data", data);
 		const items: GuestBookItem[] = [];
 		for (let i = 0; i < data.length; i++) {
