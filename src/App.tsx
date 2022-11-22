@@ -2,11 +2,49 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
-import { Breadcrumb, Layout, Menu, Button, List, Avatar } from "antd";
+import {
+	LaptopOutlined,
+	NotificationOutlined,
+	UserOutlined,
+} from "@ant-design/icons";
+import type { MenuProps } from "antd";
+import { Breadcrumb, Layout, Menu, Button } from "antd";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import GuestBook from "./GuestBook";
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content, Footer, Sider } = Layout;
+
+const items1: MenuProps["items"] = [
+	"Home",
+	"Resume",
+	"Portfolio",
+	"Guestbook",
+].map((item, index) => ({
+	key: index,
+	label: <Link to={`/${item}`}>{item}</Link>,
+}));
+
+const items2: MenuProps["items"] = [
+	UserOutlined,
+	LaptopOutlined,
+	NotificationOutlined,
+].map((icon, index) => {
+	const key = String(index + 1);
+
+	return {
+		key: `sub${key}`,
+		icon: React.createElement(icon),
+		label: `subnav ${key}`,
+
+		children: new Array(4).fill(null).map((_, j) => {
+			const subKey = index * 4 + j + 1;
+			return {
+				key: subKey,
+				label: `option${subKey}`,
+			};
+		}),
+	};
+});
 
 function App() {
 	const login = useGoogleLogin({
@@ -33,7 +71,7 @@ function App() {
 	}, [timer]);
 
 	return (
-		<Layout className="layout">
+		<Layout>
 			<h3>현재시간 : {time.toLocaleTimeString()}</h3>
 			<Button
 				onClick={() => {
@@ -56,41 +94,48 @@ function App() {
 						theme="dark"
 						mode="horizontal"
 						defaultSelectedKeys={["1"]}
-						items={[
-							{
-								key: 1,
-								label: <Link to="/">Home</Link>,
-							},
-							{
-								key: 2,
-								label: <Link to="/resume">Resume</Link>,
-							},
-							{
-								key: 3,
-								label: <Link to="/portfolio">Portfolio</Link>,
-							},
-							{
-								key: 4,
-								label: <Link to="/guestbook">GuestBook</Link>,
-							},
-						]}
+						items={items1}
 					/>
 				</Header>
-				<Content style={{ padding: "0 50px" }}>
-					<Breadcrumb style={{ margin: "16px 0" }}>
-						<Breadcrumb.Item>Home</Breadcrumb.Item>
-						<Breadcrumb.Item>List</Breadcrumb.Item>
-						<Breadcrumb.Item>Content</Breadcrumb.Item>
-					</Breadcrumb>
-					<div className="site-layout-content">
-						<Routes>
-							<Route path="/" element={<Home />} />
-							<Route path="/resume" element={<Resume />} />
-							<Route path="/portfolio" element={<Portfolio />} />
-							<Route path="/guestbook" element={<GuestBook />} />
-						</Routes>
-					</div>
-				</Content>
+				<Layout>
+					<Sider width={200}>
+						<Menu
+							mode="inline"
+							defaultSelectedKeys={["1"]}
+							defaultOpenKeys={["sub1"]}
+							style={{ height: "100%", borderRight: 0 }}
+							items={items2}
+						/>
+					</Sider>
+					<Layout style={{ padding: "0 24px" }}>
+						<Breadcrumb style={{ margin: "16px 0" }}>
+							<Breadcrumb.Item>Home</Breadcrumb.Item>
+							<Breadcrumb.Item>List</Breadcrumb.Item>
+							<Breadcrumb.Item>App</Breadcrumb.Item>
+						</Breadcrumb>
+						<Content
+							className="site-layout-background"
+							style={{
+								padding: 24,
+								minHeight: 280,
+								background: "#fff",
+							}}
+						>
+							<Routes>
+								<Route path="/Home" element={<Home />} />
+								<Route path="/Resume" element={<Resume />} />
+								<Route
+									path="/Portfolio"
+									element={<Portfolio />}
+								/>
+								<Route
+									path="/Guestbook"
+									element={<GuestBook />}
+								/>
+							</Routes>
+						</Content>
+					</Layout>
+				</Layout>
 				<Footer style={{ textAlign: "center" }}>©chaerin</Footer>
 			</Router>
 		</Layout>
