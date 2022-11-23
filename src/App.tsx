@@ -12,6 +12,8 @@ import { Breadcrumb, Layout, Menu, Button } from "antd";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import GuestBook from "./components/GuestBook";
 import Resume from "./components/Resume";
+import Portfolio from "./components/Portfolio";
+import Home from "./components/Home";
 
 const { Header, Content, Footer, Sider } = Layout;
 
