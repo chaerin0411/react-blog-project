@@ -10,7 +10,8 @@ import {
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, Button } from "antd";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
-import GuestBook from "./GuestBook";
+import GuestBook from "./components/GuestBook";
+import Resume from "./components/Resume";
 
 const { Header, Content, Footer, Sider } = Layout;
 
